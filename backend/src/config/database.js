@@ -16,7 +16,7 @@ const connectDB = async () => {
     console.log(`Bdd ${conn.connection.name}`);
     
     if (process.env.NODE_ENV === 'development') {
-      mongoose.set('debug', true); // Voir toutes les requêtes MongoDB
+      mongoose.set('debug', true); // Voir toutes les requete
       console.log('debug MongoDB');
     }
     

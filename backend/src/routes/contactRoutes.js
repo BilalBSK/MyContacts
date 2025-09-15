@@ -1,22 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const { authenticate } = require('../middleware/auth');
+const contactController = require('../controllers/contactController');
 
-// Récupérer les contacts
-router.get('/', (req, res) => {
-});
+router.use(authenticate); 
 
-// Ajouter un contact
-router.post('/', (req, res) => {
-  console.log('Body:', req.body);
-});
-
-//Modifier un contact
-router.patch('/:id', (req, res) => {
-  console.log('Body:', req.body);
-});
-
-//Supprimer un contact
-router.delete('/:id', (req, res) => {
-});
+router.get('/', contactController.getContacts);
+router.post('/', contactController.createContact);
+router.patch('/:id', contactController.updateContact);
+router.delete('/:id', contactController.deleteContact);
 
 module.exports = router;
