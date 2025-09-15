@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const authRoutes = require('./routes/authRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const setupSwagger = require('./config/swagger');
 
 const app = express();
 
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/contacts', contactRoutes);
+setupSwagger(app);
 
 app.use((req, res) => {
   res.status(404).json({
