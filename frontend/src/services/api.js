@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// config axios
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = 'https://mycontacts-z3sx.onrender.com/api';
+
+console.log('🔍 API_URL utilisée:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
@@ -11,6 +12,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  console.log('Requête vers:', config.baseURL + config.url);
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -19,8 +21,13 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('✅ Réponse:', response.status);
+    return response;
+  },
   (error) => {
+    console.error('Erreur API complète:', error);
+    console.error('URL qui a échoué:', error.config?.baseURL + error.config?.url);
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
