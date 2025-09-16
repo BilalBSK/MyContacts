@@ -6,20 +6,21 @@ const jwt = require('jsonwebtoken');
  */
 const generateToken = (payload) => {
   try {
+    const secret = process.env.JWT_SECRET || 'test_secret'; // fallback pour tests
     const token = jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      secret,
       { 
-        expiresIn: process.env.JWT_EXPIRES_IN || '7d', 
+        expiresIn: process.env.JWT_EXPIRES_IN || '7d',
         issuer: 'mycontacts-api'
       }
     );
-    
     return token;
   } catch (error) {
     throw new Error('Erreur de token');
   }
 };
+
 
 /**
  * @param {String} token 
@@ -27,8 +28,8 @@ const generateToken = (payload) => {
  */
 const verifyToken = (token) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded;
+    const secret = process.env.JWT_SECRET || 'test_secret';
+    return jwt.verify(token, secret);
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
       throw new Error('Token expiré');
