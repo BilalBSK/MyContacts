@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Contacts from './pages/Contacts';
-import { isAuthenticated } from './services/authService';
+import { isAuthenticated } from './services/authServices';
 import './App.css';
 
 function App() {

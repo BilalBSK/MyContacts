@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { login } from '../services/authService';
+import { login } from '../services/authServices';
 
 function Login({ setIsAuth }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
